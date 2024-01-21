@@ -1,6 +1,6 @@
-Uma package desenvolvida por mim para facilitar a geração de builds da Unity através de comandos cmd para automatização de builds utilizando o Jenkins.
+A package developed by me to streamline Unity build generation through CMD commands for automated builds using Jenkins.
 
-### Estrutura
+### Summary
 
 * UnityBuilder
   * [BuildCmd](#buildcmd)
@@ -9,76 +9,73 @@ Uma package desenvolvida por mim para facilitar a geração de builds da Unity a
 
 # BuildCmd
 
-Estrutura: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).BuildCmd
-Herança: ScriptableObject
+Structure: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).BuildCmd
+Inheritance: ScriptableObject
 
-Classe responsável por buildar o projeto utilizando uma pipeline definida em sua instância. Esta classe carrega um instância dela mesma e utiliza o campo pipeline para definir qual build pipeline usar na hora de gerar uma build.
+Class responsible for building the project using a pipeline defined in its instance. This class loads an instance of itself and uses the 'pipeline' field to determine which build pipeline to use when generating a build.
 
-Deverá haver apenas uma instância desta classe. Podendo ser criada através do menu de comandos da Unity `botão direito do mouse > Create > UnityBuilder > BuildCmd`. Este objeto deverá ser salvo dentro de uma pasta `Resources/`, e o seu nome não poderá ser alterado.
+There should be only one instance of this class, created through the Unity command menu `right-click > Create > UnityBuilder > BuildCmd`. This object should be saved inside a `Resources/` folder, and its name cannot be changed.
 
-### Variáveis
+### Variables
 
-Públicas
+Public
 
-|Nome|Descrição|
+|Name|Description|
 |----|-----------|
-|pipeline|SO_BuildPipeline utilizada para gerar a build.|
+|pipeline|SO_BuildPipeline used to generate build.|
 
-### Funções estáticas
+### Static functions
 
-Públicas
+Public
 
-|Nome|Descrição|
+|Name|Description|
 |----|-----------|
-|Build|Função que deve ser chamada quando estiver utilizando o comando `-executeMethod` do cmd. Esta função carrega a pipeline que será utilizada na hora de gerar uma nova build.|
+|Build|Function to be called when using the `-executeMethod` cmd command. This function loads the pipeline that will be used when generating a new build.|
 
 
 
 # SO_BuildPipeline
 
-Estrutura: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).SO_BuildPipeline
-Herança: ScriptableObject
+Structure: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).SO_BuildPipeline
+Inheritance: ScriptableObject
 
-Classe responsável por conter informações de como a build deverá ser realizada.
+Class responsible for containing information on how the build should be carried out.
 
-O [BuildCmd](obsidian://open?vault=myVault&file=BuildCmd) acessa a SO_BuildPipeline definida e roda a função `Build()`. Salvando a build gerada no caminho definido no environment `UNITY_BUILDER_ROOT`.
+The [BuildCmd](obsidian://open?vault=myVault&file=BuildCmd) accesses the defined SO_BuildPipeline and runs the `Build()` function, saving the generated build to the path specified in the `UNITY_BUILDER_ROOT` environment.
 
- > 
- > É necessário que exista um *environment variable* criado com o nome `UNITY_BUILDER_ROOT` especificando o caminho que a build será gerada.
- > 
- > Se não existir nenhum *environment variable* com este nome, a build será cancelada, retornando `BuildResult.INVALID_ENVIROMENTS`
+> It is necessary to have an environment variable created with the name `UNITY_BUILDER_ROOT` specifying the path where the build will be generated.
+> If there is no environment variable with this name, the build will be canceled, returning `BuildResult.INVALID_ENVIRONMENTS`.
 
-Ao fim da build, o arquivo é salvo dentro do caminho especificado pela variável de ambiente `UNITY_BUILDER_ROOT` com o nome `build_temp`.
+At the end of the build, the file is saved inside the path specified by the `UNITY_BUILDER_ROOT` environment variable with the name `build_temp`.
 
-### Variáveis
+### Variables
 
-Privadas
+Private
 
-|Nome|Descrição|
-|----|-----------|
-|\_target|A `BuildTarget` que a build será gerada.|
-|\_options|Configurações adicionais que esta build poderá ter.|
-|\_scenesInBuild|Cenas que irão conter nesta build. A primeira cena que irá carregar na build deverá ser o primeiro item deste Array.|
+| Name           | Description                                           |
+| -------------- | ----------------------------------------------------- |
+| \_target       | The `BuildTarget` for which the build will be generated. |
+| \_options      | Additional settings this build may have.              |
+| \_scenesInBuild| Scenes to be included in this build. The first scene to load in the build should be the first item in this array. |
 
-### Funções
+### Functions
 
-Públicas
+Public
 
-|Nome|Descrição|
-|----|-----------|
-|Build|Inicia o processo de build da Unity através do comando `BuildPipeline.BuildPlayer`. Ao fim da build, esta função retorna um resultado do tipo SO_BuildPipeline.[BuildResult](#buildresult)|
-
+| Name  | Description                                           |
+| ----- | ----------------------------------------------------- |
+| Build | Initiates the Unity build process using the `BuildPipeline.BuildPlayer` command. At the end of the build, this function returns a result of type SO_BuildPipeline.[BuildResult](#buildresult)|
 
 # BuildResult
 
-Estrutura: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).[SO_BuildPipeline](obsidian://open?vault=myVault&file=SO_BuildPipeline).BuildResult
-Herança: Não
+Structure: [UnityBuilder](obsidian://open?vault=myVault&file=Unity%20Builder).[SO_BuildPipeline](obsidian://open?vault=myVault&file=SO_BuildPipeline).BuildResult
+Inheritance: No
 
-Enum que contém informações pós builds. É com este enum que poderá saber se a build foi gerada com sucesso, ou se foi cancelada devido à algum fator.
+Enum that contains post-build information. With this enum, you can determine whether the build was successful or if it was canceled due to some factor.
 
-### Valores
+### Values
 
-|Nome|Descrição|
-|----|-----------|
-|SUCCESS|A build foi gerada com sucesso.|
-|INVALID_ENVIRONMENTS|A build foi cancelada devido à algum problema de variáveis de ambiente. Alguma variável pode não existir e/ou contém valores errados.|
+| Name                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| SUCCESS              | The build was generated successfully.                 |
+| INVALID_ENVIRONMENTS | The build was canceled due to some environment variable issue. Some variables may not exist and/or contain incorrect values. |
