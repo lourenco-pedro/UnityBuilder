@@ -29,6 +29,8 @@ namespace UnityBuilder
                     Debug.Log("Could not update Player. No version updater file was selected.");
                 }
 
+                Debug.Log("build version is: " + PlayerSettings.bundleVersion);
+                
                 SO_BuildPipeline.BuildResult result = cmd.pipeline.Build();
 
                 LogBuildResult(result);
