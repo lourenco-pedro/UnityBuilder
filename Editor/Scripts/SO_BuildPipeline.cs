@@ -31,8 +31,11 @@ namespace UnityBuilder
                 return BuildResult.INVALID_ENVIRONMENTS;
                 
             string[] levels = _scenesInBuild.Select(AssetDatabase.GetAssetPath).ToArray();
+
+            Directory.CreateDirectory
+            (Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), PlayerSettings.bundleVersion));
             
-            string buildPath = Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), "build_temp", "builder_build.exe");
+            string buildPath = Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), PlayerSettings.bundleVersion, PlayerSettings.bundleVersion+".exe");
 
             BuildReport report = BuildPipeline.BuildPlayer(levels, buildPath, _target, _options);
 
