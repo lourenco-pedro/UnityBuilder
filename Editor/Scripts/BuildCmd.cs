@@ -7,7 +7,8 @@ namespace UnityBuilder
     [CreateAssetMenu(menuName = "UnityBuilder/BuildCmd", fileName = "BuildCmd")]
     public class BuildCmd : ScriptableObject
     {
-        public SO_BuildPipeline pipeline;  
+        public SO_BuildPipeline pipeline;
+        public SO_VersionUpdater version;
         
         public static void Build()
         {
@@ -20,6 +21,14 @@ namespace UnityBuilder
                 Debug.Log($"UnityBuilder will use the {cmd.pipeline.name} pipeline for this build...");
                 Debug.Log("Start building...");
                 
+                if(null != cmd.version)
+                    cmd.version.UpdateVersion();
+                else
+                {
+                    PlayerSettings.bundleVersion = "e0.0.0";
+                    Debug.Log("Could not update Player. No version updater file was selected.");
+                }
+
                 SO_BuildPipeline.BuildResult result = cmd.pipeline.Build();
 
                 LogBuildResult(result);

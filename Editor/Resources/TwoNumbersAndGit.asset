@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7356597d374472f4d8e82afcb8e1bd8c, type: 3}
-  m_Name: BuildCmd
+  m_Script: {fileID: 11500000, guid: eac79891c6d83c64f8abc6fb48870f2d, type: 3}
+  m_Name: TwoNumbersAndGit
   m_EditorClassIdentifier: 
-  pipeline: {fileID: 11400000, guid: 16ebebdcdabdbc042b7e68c9b776973c, type: 2}
-  version: {fileID: 11400000, guid: 42fc6bc2c51c9ce45a5e218c47c66248, type: 2}
+  _updateAndroidVersion: 0
+  _updateIosVersion: 0
+  _repositoryPath: C:\Users\pedro\Documents\Unity Projects\MiscProject\Assets\UnityBuilder

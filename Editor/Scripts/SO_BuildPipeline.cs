@@ -11,7 +11,7 @@ namespace UnityBuilder
     public class SO_BuildPipeline : ScriptableObject
     {
 
-        const string ENV_UNITY_BUILDER_ROOT = "UNITY_BUILDER_ROOT";
+        public const string ENV_UNITY_BUILDER_ROOT = "UNITY_BUILDER_ROOT";
 
         public enum BuildResult
         {
