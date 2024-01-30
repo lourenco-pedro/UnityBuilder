@@ -2,47 +2,28 @@ using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 namespace UnityBuilder
 {
-    [CreateAssetMenu(menuName = "UnityBuilder/BuilderFile")]
-    public class SO_BuildPipeline : ScriptableObject
+    public abstract class SO_BuildPipeline : ScriptableObject
     {
-
         public const string ENV_UNITY_BUILDER_ROOT = "UNITY_BUILDER_ROOT";
 
         public enum BuildResult
         {
             SUCCESS,
-            INVALID_ENVIRONMENTS
+            INVALID_ENVIRONMENTS,
+            FAIL_WITH_ERROR
         };
-
-        public BuildTarget BuildTarget => _target;
+        [SerializeField] protected BuildOptions _options;
+        [SerializeField] protected SceneAsset[] _scenesInBuild;
         
-        [SerializeField] BuildTarget _target;
-        [SerializeField] BuildOptions _options;
-        [SerializeField] SceneAsset[] _scenesInBuild;
-        
-        public BuildResult Build()
-        {
-            if(!CheckEnvironments())
-                return BuildResult.INVALID_ENVIRONMENTS;
-                
-            string[] levels = _scenesInBuild.Select(AssetDatabase.GetAssetPath).ToArray();
+        public abstract BuildResult Build();
+        protected abstract string GetFilePath();
 
-            Directory.CreateDirectory
-            (Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), PlayerSettings.bundleVersion));
-            
-            string buildPath = Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), PlayerSettings.bundleVersion, PlayerSettings.bundleVersion+".exe");
 
-            BuildReport report = BuildPipeline.BuildPlayer(levels, buildPath, _target, _options);
-
-            return BuildResult.SUCCESS;
-        }
-
-        bool CheckEnvironments()
+        protected bool CheckEnvironments()
         {
             string[] environments = new[]
             {
@@ -63,21 +44,13 @@ namespace UnityBuilder
 
             return true;
         }
-        
-        [CustomEditor(typeof(SO_BuildPipeline))]
-        public class SO_BuildPipeline_CustomInspector : Editor
-        {
-            public override void OnInspectorGUI()
-            {
-                base.OnInspectorGUI();
 
-                bool build = GUILayout.Button("Build!");
-                if (build)
-                {
-                    SO_BuildPipeline pipeLine = target as SO_BuildPipeline;
-                    pipeLine.Build();
-                }
-            }
+        protected virtual void CreateBuildDirectory()
+        {
+            Directory.CreateDirectory
+            (
+                Path.Combine(Environment.GetEnvironmentVariable(ENV_UNITY_BUILDER_ROOT), PlayerSettings.bundleVersion)
+            );
         }
     }
 }
