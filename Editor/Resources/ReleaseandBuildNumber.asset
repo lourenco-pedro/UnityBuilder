@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7356597d374472f4d8e82afcb8e1bd8c, type: 3}
-  m_Name: BuildCmd
+  m_Script: {fileID: 11500000, guid: 1dbcceb495ec7c741a0af7581a4c06ca, type: 3}
+  m_Name: ReleaseandBuildNumber
   m_EditorClassIdentifier: 
-  pipeline: {fileID: 11400000, guid: 71be053c99cd51b449ad04fd60c497f5, type: 2}
-  version: {fileID: 11400000, guid: 42fc6bc2c51c9ce45a5e218c47c66248, type: 2}

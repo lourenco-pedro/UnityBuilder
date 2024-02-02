@@ -22,7 +22,6 @@ namespace UnityBuilder
         public abstract BuildResult Build();
         protected abstract string GetFilePath();
 
-
         protected bool CheckEnvironments()
         {
             string[] environments = new[]

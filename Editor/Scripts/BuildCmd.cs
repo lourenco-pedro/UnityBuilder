@@ -9,7 +9,13 @@ namespace UnityBuilder
     {
         public SO_BuildPipeline pipeline;
         public SO_VersionUpdater version;
-        
+
+        [ContextMenu("Build!")]
+        void BuildInternal()
+        {
+            Build();
+        }
+
         public static void Build()
         {
             try

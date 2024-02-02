@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7356597d374472f4d8e82afcb8e1bd8c, type: 3}
-  m_Name: BuildCmd
+  m_Script: {fileID: 11500000, guid: 2ad83e4f98de1b341bb1bae3cbce78f7, type: 3}
+  m_Name: SO_Android Build Pipeline
   m_EditorClassIdentifier: 
-  pipeline: {fileID: 11400000, guid: 71be053c99cd51b449ad04fd60c497f5, type: 2}
-  version: {fileID: 11400000, guid: 42fc6bc2c51c9ce45a5e218c47c66248, type: 2}
+  _options: 0
+  _scenesInBuild:
+  - {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
+  _buildApp: 1

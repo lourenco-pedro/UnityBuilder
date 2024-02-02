@@ -77,9 +77,9 @@ namespace UnityBuilder.VersionUpdaterTypes
 
         string SetGitNumber(string versionString)
         {
-            
             string[] versionNumbers = versionString.Split(".");
 
+            GitCommitUtility.RunGitCommand($"config --global --add safe.directory {_repositoryPath}", _repositoryPath);
             string result = GitCommitUtility.RetrieveCurrentCommitShorthash(_repositoryPath);
             
             if (!string.IsNullOrEmpty(result))
